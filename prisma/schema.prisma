@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id             String           @id @default(uuid())
+  username       String           @unique
+  email          String           @unique
+  password       String
+  owner          owner?
+  event_partners event_partners[]
+}
+
+model owner {
+  id     String  @id @default(uuid())
+  cpf    String  @unique
+  user   user    @relation(fields: [userId], references: [id])
+  userId String  @unique
+  event  event[]
+}
+
+model event_partners {
+  id      String @id @default(uuid())
+  event   event  @relation(fields: [eventId], references: [id])
+  partner user   @relation(fields: [userId], references: [id])
+  eventId String
+  userId  String
+}
+
+model event {
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  date           DateTime
+  remote         Boolean
+  img_url        String
+  event_url      String
+  owner          owner            @relation(fields: [ownerId], references: [id])
+  address        address?         @relation(fields: [addressId], references: [id])
+  addressId      String?
+  coupon         coupon[]
+  ownerId        String
+  event_partners event_partners[]
+}
+
+model address {
+  id    String  @id @default(uuid())
+  city  String
+  uf    String
+  event event[]
+}
+
+model coupon {
+  id       String  @id @default(uuid())
+  code     String  @unique
+  discount Int
+  valid    Boolean
+  event    event   @relation(fields: [eventId], references: [id])
+  eventId  String
+}
