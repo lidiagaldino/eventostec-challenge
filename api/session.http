@@ -1,0 +1,7 @@
+POST http://localhost:3000/sessions
+Content-Type: application/json
+
+{
+  "username": "damarisgaldino",
+  "password": "damaris123"
+}

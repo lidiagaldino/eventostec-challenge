@@ -1,0 +1,49 @@
+POST http://localhost:3000/events
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1NzViOTFhLWI1NmItNDQyMi1iZjcyLTE5YjJlZjc0ZmRiZSIsInVzZXJuYW1lIjoiZGFtYXJpc2dhbGRpbm8iLCJ0eXBlIjoib3duZXIiLCJpYXQiOjE3MTkzNTA2MzgsImV4cCI6MTcxOTk1NTQzOH0.bv0XvFxHJmn60yVSQcDjmYfSJfPUB69wXBcSKAyWMrA
+
+{
+  "title": "New Event Filter",
+  "description": "Event description",
+  "date": "2024-07-01T02:00:00.000z",
+  "remote": true,
+  "img_url": "https://varioproductions.com/wp-content/uploads/2020/02/5-Event-Tech-Trends-to-Watch-Out-For-in-2020-scaled-1-1024x683.jpg",
+  "event_url": "https://varioproductions.com/2020/03/06/5-event-tech-trends-to-watch-out-for-in-2020/",
+  "owner_id": "d7157e3a-788c-4784-b48e-e6eabf28abc3"
+}
+###
+GET http://localhost:3000/events?page=0&size=10
+###
+GET http://localhost:3000/events/5a58aa26-f2ec-4042-aab9-35bbb33112bd
+###
+PATCH http://localhost:3000/events/17ceea26-1bfc-4508-9ecb-71f0dd3a0f36
+Content-Type: application/json
+
+{
+  "title": "New Event Updated ",
+  "description": "Event description",
+  "date": "2024-07-01T02:00:00.000z",
+  "remote": true,
+  "img_url": "https://varioproductions.com/wp-content/uploads/2020/02/5-Event-Tech-Trends-to-Watch-Out-For-in-2020-scaled-1-1024x683.jpg",
+  "event_url": "https://varioproductions.com/2020/03/06/5-event-tech-trends-to-watch-out-for-in-2020/",
+  "owner_id": "d7157e3a-788c-4784-b48e-e6eabf28abc3"
+}
+
+###
+PUT http://localhost:3000/events/partner/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1NzViOTFhLWI1NmItNDQyMi1iZjcyLTE5YjJlZjc0ZmRiZSIsInVzZXJuYW1lIjoiZGFtYXJpc2dhbGRpbm8iLCJ0eXBlIjoib3duZXIiLCJpYXQiOjE3MTkzNTA2MzgsImV4cCI6MTcxOTk1NTQzOH0.bv0XvFxHJmn60yVSQcDjmYfSJfPUB69wXBcSKAyWMrA
+
+{
+  "event_id": "0cc2d9f8-0424-4c7a-a200-0e3e2395c875",
+  "partner_username": "marialuiza"
+}
+
+###
+PUT http://localhost:3000/events/partner/remove
+Content-Type: application/json
+
+{
+  "event_id": "17ceea26-1bfc-4508-9ecb-71f0dd3a0f36",
+  "partner_username": "damarisgaldino"
+}

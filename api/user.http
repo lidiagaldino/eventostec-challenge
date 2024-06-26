@@ -1,0 +1,18 @@
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "username": "marialuiza",
+  "email": "marialuiza@gmail.com",
+  "password": "marialuiza123"
+}
+
+###
+GET http://localhost:3000/users/b575b91a-b56b-4422-bf72-19b2ef74fdbe
+###
+PUT http://localhost:3000/users/14429fef-2896-4f47-9c5b-405a5b5582a6
+Content-Type: application/json
+
+{
+  "username": "lidiagaldino"
+}

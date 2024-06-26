@@ -1,0 +1,9 @@
+POST http://localhost:3000/coupons
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxYWZmNDhiLTgzZTMtNDE5Yi1hZTYzLTdjZmNkNzMyMTVlNyIsInVzZXJuYW1lIjoibWFyaWFsdWl6YSIsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNzE5MTcyMzc4LCJleHAiOjE3MTk3NzcxNzh9.n9N16bojrEZDMpJJpLcT6zhKg79CCCEREjHqYPOT8Qc
+
+{
+  "code": "ABCDE1",
+  "discount": 10,
+  "event_id": "0cc2d9f8-0424-4c7a-a200-0e3e2395c875"
+}

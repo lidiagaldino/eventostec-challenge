@@ -1,0 +1,18 @@
+POST http://localhost:3000/owners
+Content-Type: application/json
+
+{
+  "user_id": "b575b91a-b56b-4422-bf72-19b2ef74fdbe",
+  "cpf": "30399936823"
+}
+
+###
+PUT http://localhost:3000/owners/d7157e3a-788c-4784-b48e-e6eabf28abc3
+Content-Type: application/json
+
+{
+  "cpf": "47189168877"
+}
+
+###
+GET http://localhost:3000/owners/d7157e3a-788c-4784-b48e-e6eabf28abc3
