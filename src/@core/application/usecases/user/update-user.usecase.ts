@@ -13,7 +13,6 @@ export class UpdateUserUsecase {
   ) { }
 
   async execute(id: string, dto: TUpdateUserInputDTO): Promise<TUserOutputDTO> {
-    console.log(dto)
     const { isValid, errorsResult } = this.validator.validate(this.schema, dto)
     if (!isValid) throw new UnprocessableException(errorsResult)
 

@@ -7,7 +7,7 @@ import { right } from '../../domain/shared/result/right.result';
 import { Address } from '../../domain/value-objects/address.value-object';
 import { Url } from '../../domain/value-objects/url.value-object';
 
-type TEventFactoryInput = {
+export type TEventFactoryInput = {
   title: string,
   description: string
   date: Date;
@@ -42,6 +42,6 @@ export const eventFactory = (props: TEventFactoryInput): Response<Event> => {
     img_url: imgUrl.getValue(),
     event_url: eventUrl.getValue(),
   });
-  if (event.isFailure) left(event)
+  if (event.isFailure) return left(event)
   return right(event);
 };

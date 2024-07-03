@@ -4,7 +4,7 @@ import { Event } from '../../domain/entities/event.entity';
 import { right } from '../../domain/shared/result/right.result';
 import { left } from '../../domain/shared/result/left.result';
 
-type TCouponFactoryInput = {
+export type TCouponFactoryInput = {
   code: string;
   discount: number;
   event: Event;
