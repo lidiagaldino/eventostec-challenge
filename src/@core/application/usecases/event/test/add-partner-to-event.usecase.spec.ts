@@ -44,7 +44,8 @@ describe("AddPartnerToEventUsecase", () => {
   beforeEach(() => {
     eventRepository = {} as jest.Mocked<IEventRepository>;
     userRepository = {} as jest.Mocked<IUserRepository>;
-    validator = {} as jest.Mocked<IValidator<TEventPartnerInputDTO>>;
+    validator = {
+    } as jest.Mocked<IValidator<TEventPartnerInputDTO>>;
 
     usecase = new AddPartnerToEventUsecase(eventRepository, userRepository, validator, {});
   });
@@ -52,14 +53,14 @@ describe("AddPartnerToEventUsecase", () => {
   describe("execute", () => {
     it("should throw UnprocessableException when input is invalid", async () => {
       const invalidInput: TEventPartnerInputDTO = { partner_username: "invalid", event_id: "invalid" };
-      validator.validate = jest.fn().mockResolvedValue({ isValid: false, errorsResult: "Invalid input" });
+      validator.validate = jest.fn().mockReturnValue({ isValid: false, errorsResult: "Invalid input" });
 
       await expect(usecase.execute(invalidInput)).rejects.toThrow(UnprocessableException);
     });
 
     it("should throw NotFoundException when user not found", async () => {
       const validInput: TEventPartnerInputDTO = { partner_username: "valid", event_id: "valid" };
-      validator.validate = jest.fn().mockResolvedValue({ isValid: true });
+      validator.validate = jest.fn().mockReturnValue({ isValid: true });
       userRepository.findByUsername = jest.fn().mockResolvedValue(null);
 
       await expect(usecase.execute(validInput)).rejects.toThrow(NotFoundException);
@@ -67,18 +68,18 @@ describe("AddPartnerToEventUsecase", () => {
 
     it("should throw NotFoundException when event not found", async () => {
       const validInput: TEventPartnerInputDTO = { partner_username: "valid", event_id: "1" };
-      validator.validate = jest.fn().mockResolvedValue({ isValid: true });
+      validator.validate = jest.fn().mockReturnValue({ isValid: true });
       userRepository.findByUsername = jest.fn().mockResolvedValue(user);
-      eventRepository.findById = jest.fn().mockResolvedValue(event);
+      eventRepository.findById = jest.fn().mockResolvedValue(null);
 
       await expect(usecase.execute(validInput)).rejects.toThrow(NotFoundException);
     });
 
     it("should throw BadRequestException when partner already exists", async () => {
       const validInput: TEventPartnerInputDTO = { partner_username: "valid", event_id: "valid" };
-      validator.validate = jest.fn().mockResolvedValue({ isValid: true });
+      validator.validate = jest.fn().mockReturnValue({ isValid: true });
       userRepository.findByUsername = jest.fn().mockResolvedValue(user);
-      eventRepository.findById = jest.fn().mockResolvedValue(null);
+      eventRepository.findById = jest.fn().mockResolvedValue(event);
       eventRepository.verifyIfPartnerExists = jest.fn().mockResolvedValue(true);
 
       await expect(usecase.execute(validInput)).rejects.toThrow(BadRequestException);
@@ -86,9 +87,9 @@ describe("AddPartnerToEventUsecase", () => {
 
     it("should add partner to event successfully", async () => {
       const validInput: TEventPartnerInputDTO = { partner_username: "valid", event_id: "1" };
-      validator.validate = jest.fn().mockResolvedValue({ isValid: true });
+      validator.validate = jest.fn().mockReturnValue({ isValid: true });
       userRepository.findByUsername = jest.fn().mockResolvedValue(user);
-      eventRepository.findById = jest.fn().mockResolvedValue(null);
+      eventRepository.findById = jest.fn().mockResolvedValue(event);
       eventRepository.verifyIfPartnerExists = jest.fn().mockResolvedValue(false);
       eventRepository.addPartner = jest.fn().mockResolvedValue(null);
 
